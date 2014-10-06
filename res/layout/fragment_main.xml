@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:numColumns="2" >
+        android:numColumns="3"
+        android:stretchMode="columnWidth" >
     </GridView>
 
     <TextView

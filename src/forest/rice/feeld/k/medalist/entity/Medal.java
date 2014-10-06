@@ -1,7 +1,7 @@
 package forest.rice.feeld.k.medalist.entity;
 
 public class Medal {
-	
+
 	public String name;
 	public String id;
 	public String family;
@@ -12,23 +12,31 @@ public class Medal {
 	public String watch;
 	public String game;
 	public String sort_num;
-	
+
 	private Medal() {
 	}
-	
-	public static Medal createMedal(String line){
+
+	public static Medal createMedal(String line) {
 		String[] str = line.split("\t", 10);
-		if(str.length != 10) {
+		if (str.length != 10) {
 			System.out.println(str);
 			return null;
 		}
-		if(str[0].equals("name")){
+		if (str[1].trim().equals("id")) {
 			System.out.println(str);
 			return null;
 		}
-		
+		if (str[9].trim().equals("")) {
+			System.out.println(str);
+			return null;
+		}
+		if (str[0].trim().equals("？？？")) {
+			System.out.println(str);
+			return null;
+		}
+
 		Medal medal = new Medal();
-		
+
 		medal.name = (str[0] != null) ? str[0] : "";
 		medal.id = (str[1] != null) ? str[1] : "";
 		medal.family = (str[2] != null) ? str[2] : "";
@@ -42,4 +50,9 @@ public class Medal {
 		return medal;
 	}
 
+	public static final String imageUrlFormat = "http://yw.b-boys.jp/member/images/items/list/medal/%1$s/img_medal%2$s.png";
+
+	public String getImageUrl() {
+		return String.format(imageUrlFormat, phase, id);
+	}
 }

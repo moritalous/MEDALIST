@@ -1,6 +1,7 @@
 package forest.rice.feeld.k.medalist.manager;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -62,18 +63,33 @@ public class MedalListRequest extends Request<MedalList> {
 			String parsed = new String(response.data, "UTF-8");
 			String[] lines = parsed.split("\r\n");
 			for (String line : lines) {
-				try{
+				try {
 					Medal medal = Medal.createMedal(line);
-					medalList.add(medal);		
-				} catch(Exception e){
+
+					if (isDupulicate(medal, medalList.allMedal)) {
+						continue;
+					}
+
+					medalList.add(medal);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			
+
 			}
 		} catch (UnsupportedEncodingException e) {
 		}
 		return Response.success(medalList,
 				HttpHeaderParser.parseCacheHeaders(response));
+	}
+
+	private boolean isDupulicate(Medal medal, List<Medal> medalList) {
+		for (Medal tmpMedal : medalList) {
+			if (tmpMedal.id.equals(medal.id)
+					&& tmpMedal.phase.equals(medal.phase)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

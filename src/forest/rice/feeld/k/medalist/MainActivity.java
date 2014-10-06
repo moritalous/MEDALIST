@@ -2,24 +2,21 @@ package forest.rice.feeld.k.medalist;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 
-import forest.rice.feeld.k.medalist.entity.Medal;
 import forest.rice.feeld.k.medalist.entity.MedalList;
 import forest.rice.feeld.k.medalist.manager.MedalListRequest;
 import forest.rice.feeld.k.medalist.manager.VolleyManager;
@@ -49,7 +46,9 @@ public class MainActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_official_site) {
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://yw.b-boys.jp/member/products/product_list/"));
+			startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
